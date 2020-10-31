@@ -1,0 +1,191 @@
+% Beamer for Northwestern University
+% Jin Zhang
+% 2020.04
+\mode<presentation>
+
+% Loading essential fonts, changing default encoding to UTF-8 for symbil support
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% ===== Requirement =====
+%\RequirePackage{tikz}
+%\RequirePackage{xcolor}
+
+% ===== Settings =====
+\setbeamertemplate{navigation symbols}{} % Disable navigation buttoms
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+
+% ===== Colors =====
+% Colorbrewer colors
+\definecolor{set1-1}{RGB}{228,26,28}
+\definecolor{set1-2}{RGB}{55,126,184}
+\definecolor{set1-3}{RGB}{77,175,74}
+\definecolor{set1-4}{RGB}{152,78,163}
+\definecolor{set1-5}{RGB}{255,127,0}
+\definecolor{set1-6}{RGB}{255,255,51}
+\definecolor{set1-7}{RGB}{166,86,40}
+\definecolor{set1-8}{RGB}{247,129,191}
+% Northwestern colors
+\definecolor{northwestern purple}{RGB}{078, 042, 132}
+\definecolor{purple90}{RGB}{91, 59, 140}
+\definecolor{purple80}{RGB}{104, 076, 150}
+\definecolor{purple70}{RGB}{118, 093, 160}
+\definecolor{purple60}{RGB}{131, 110, 170}
+\definecolor{purple50}{RGB}{147, 128, 182}
+\definecolor{purple40}{RGB}{164, 149, 195}
+\definecolor{purple30}{RGB}{182, 172, 209}
+\definecolor{purple20}{RGB}{204, 196, 223}
+\definecolor{purple10}{RGB}{228, 224, 238}
+\definecolor{purple160}{RGB}{029, 002, 053}
+\definecolor{purple150}{RGB}{038, 008, 065}
+\definecolor{purple140}{RGB}{048, 016, 078}
+\definecolor{purple130}{RGB}{056, 023, 090}
+\definecolor{purple120}{RGB}{064, 031, 104}
+\definecolor{purple120}{RGB}{072, 036, 118}
+
+%Purple as default structure
+\definecolor{beamer@blendedblue}{RGB}{78,38,131}%
+
+%Changing the colors of hyperlinks
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=blue!40!structure,urlcolor=blue!40!structure}
+
+%Specifying colors and shadings for various aspects
+\setbeamercolor{title}{fg=structure,bg=white}
+\setbeamercolor{title in head/foot}{bg=white,fg=structure.fg!85!black}
+\setbeamercolor{frametitle}{bg=white,fg=structure.fg!90}
+\setbeamercolor{subtitle}{fg=black}
+\setbeamercolor{headline}{bg=white,fg=structure.fg}
+\setbeamercolor{footline}{fg=white,bg=northwestern purple}
+\setbeamercolor{author in head/foot}{bg=white,fg=structure.fg!85!black}
+\setbeamercolor{section in head/foot}{bg=white,fg=structure.fg}
+\setbeamercolor{subsection in head/foot}{bg=white,fg=structure.fg}
+\setbeamercolor{allwhite}{bg=white,fg=white}
+\setbeamercolor{purple block}{fg=white,bg=purple90}
+%\setbeamercolor{topline}{fg=white,bg=structure.fg!90}
+\setbeamercolor{alerted text}{fg=set1-1,bg=white}
+
+% ===== Fonts =====
+%Specifying fonts for various aspects
+\setbeamerfont{section in head/foot}{size={\fontsize{10}{12}}}
+\setbeamerfont{title}{size=\huge,parent=structure} % Font for the presentation title
+\setbeamerfont{frametitle}{size=\LARGE} % Font of the frame titles
+
+
+% ===== Title page =====
+\defbeamertemplate*{title page}{customized}[1][]
+{%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=\paperheight]{}%
+      \begin{beamercolorbox}[wd=0.084\paperwidth,ht=\paperheight]{footline}%
+      \begin{beamercolorbox}[wd=0.028\paperwidth,ht=\paperheight]{purple block}%
+      \end{beamercolorbox}%
+      \end{beamercolorbox}%
+      % some hack wrt aspect ratio
+      \ifdimcomp{\beamer@paperwidth}{=}{12.80cm}{\hspace*{0.035\paperwidth}}{}%43
+      \ifdimcomp{\beamer@paperwidth}{=}{16.00cm}{\hspace*{0.020\paperwidth}}{}%169,1610
+      \ifdimcomp{\beamer@paperwidth}{=}{13.50cm}{\hspace*{0.031\paperwidth}}{}%32
+      \ifdimcomp{\beamer@paperwidth}{=}{12.50cm}{\hspace*{0.037\paperwidth}}{}%54
+      \ifdimcomp{\beamer@paperwidth}{=}{14.85cm}{\hspace*{0.025\paperwidth}}{}%141
+      \ifdimcomp{\beamer@paperwidth}{=}{14.00cm}{\hspace*{0.029\paperwidth}}{}%149
+      \begin{beamercolorbox}[wd=.916\paperwidth,ht=\paperheight,left,leftskip=2em,rightskip=3em]{}%
+        \usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par%
+        \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par%
+        \bigskip\bigskip\smallskip%
+        \usebeamerfont{author}\insertauthor\par\smallskip%
+        \usebeamerfont{institute}\insertinstitute\par%
+        \usebeamerfont{date}\insertdate\par%
+        \bigskip\bigskip\smallskip%
+        \begin{beamercolorbox}[wd=\paperwidth,right,rightskip=.1\paperwidth]{}%
+          \includegraphics[height=.06\paperheight]{Northwestern_purple_RGB.pdf}%
+        \end{beamercolorbox}%
+        \bigskip\bigskip\smallskip\bigskip
+      \end{beamercolorbox}%
+    \end{beamercolorbox}
+  }%
+}
+
+% Proof to Sketch of proof
+\let\oldproof\proof
+\let\endoldproof\endproof
+\renewenvironment{proof}{\textcolor{structure}{\emph{Sketch of Proof.}\\}}{}
+\newenvironment{fullproof}{\textcolor{structure}{\emph{Proof.}\\}}{}
+
+
+% Frametitle
+\setbeamertemplate{frametitle}
+{%
+  %\nointerlineskip%
+  \vskip .7ex
+  \usebeamerfont{headline}%
+  \begin{beamercolorbox}[wd=\paperwidth,leftskip=.3cm,rightskip=.3cm plus1fil,vmode,dp=2ex]{frametitle}%
+    \usebeamerfont*{frametitle}\insertframetitle%
+      \ifx\insertframesubtitle\@empty%
+        \strut\par%
+      \else
+        \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+      \fi%%
+  \end{beamercolorbox}%
+  \vspace*{-1.8em}
+  \nointerlineskip
+}
+
+
+% Footline
+\setbeamertemplate{footline}
+{\leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,left,ht=0.075\paperheight]{purple block}%
+      \begin{beamercolorbox}[wd=.075\paperwidth,left,ht=0.075\paperheight]{purple block}%
+      \end{beamercolorbox}%
+      \hskip0pt%
+      \begin{beamercolorbox}[wd=.925\paperwidth,ht=0.075\paperheight]{footline}%
+        \begin{beamercolorbox}[wd=.745\paperwidth,left, leftskip=.03\paperwidth]{}%
+          \includegraphics[height=.05\paperheight]{Northwestern_white_RGB.pdf}\vskip.014\paperheight%
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.18\paperwidth,ht=0.075\paperheight,rounded=true,shadow=true, right, rightskip=4ex]{frame number}%
+          \hfill\usebeamerfont{frame number}\insertframenumber{} / \inserttotalframenumber{} \vskip.024\paperheight%
+        \end{beamercolorbox}%
+      \end{beamercolorbox}%
+    \end{beamercolorbox}%
+}%
+}
+
+
+
+% Redefining the itemize type of environments for proper spacing
+\makeatletter
+\def\@listi{\leftmargin\leftmargini
+            \topsep 3\p@ \@plus2\p@ \@minus2.5\p@
+            \parsep 0\p@
+            \itemsep\fill}
+
+\let\@listI\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+              \topsep    2\p@ \@plus1\p@ \@minus2\p@
+              \parsep    0\p@   \@plus\p@
+              \itemsep   \fill}
+
+\def\@listiii{\leftmargin\leftmarginiii
+              \topsep    2\p@ \@plus1\p@ \@minus2\p@
+              \parsep    0\p@   \@plus\p@
+              \itemsep   \fill}
+\makeatother
+
+
+% Setting colors for theorems etc..
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{bg=structure!95,fg=white}
+\setbeamercolor{block body}{bg=structure!15,fg=black}
+\makeatletter
+\pgfdeclareverticalshading[lower.bg,upper.bg]{bmb@transition}{200cm}{color(0pt)=(lower.bg); color(4pt)=(lower.bg); color(4pt)=(upper.bg)}
+\makeatother
+
+
+
+\mode
+<all>
+
