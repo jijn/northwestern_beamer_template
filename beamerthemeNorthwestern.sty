@@ -64,7 +64,7 @@
 \setbeamercolor{subsection in head/foot}{bg=white,fg=structure.fg}
 \setbeamercolor{allwhite}{bg=white,fg=white}
 \setbeamercolor{purple block}{fg=white,bg=purple90}
-%\setbeamercolor{topline}{fg=white,bg=structure.fg!90}
+\setbeamercolor{topline}{fg=white,bg=gray!60}
 \setbeamercolor{alerted text}{fg=set1-1,bg=white}
 
 % ===== Fonts =====
@@ -73,6 +73,30 @@
 \setbeamerfont{title}{size=\huge,parent=structure} % Font for the presentation title
 \setbeamerfont{frametitle}{size=\LARGE} % Font of the frame titles
 
+
+% ===== Progress Bar =====
+% progress bar (beamerthemeJanelia.sty)
+% doing `\setcounter{showProgressBar}{0}` will turn the progress bar off
+\newcounter{showProgressBar}
+\setcounter{showProgressBar}{1}
+
+% use \makeatletter for our progress bar definitions
+% progress bar idea from http://tex.stackexchange.com/a/59749/44221
+% slightly adapted for visual purposes here
+\makeatletter
+\newcount\progressbar@tmpcounta% auxiliary counter
+\newcount\progressbar@tmpcountb% auxiliary counter
+\newdimen\progressbar@pbwidth %progressbar width
+\newdimen\progressbar@tmpdim % auxiliary dimension
+
+\newdimen\slidewidth % auxiliary dimension
+\newdimen\slideheight % auxiliary dimension
+
+% make the progress bar go across the screen
+%\progressbar@pbwidth=12.8cm
+\progressbar@pbwidth=\the\paperwidth
+\slidewidth=\the\paperwidth
+\slideheight=\the\paperheight
 
 % ===== Title page =====
 \defbeamertemplate*{title page}{customized}[1][]
@@ -117,9 +141,26 @@
 % Frametitle
 \setbeamertemplate{frametitle}
 {%
-  %\nointerlineskip%
-  \vskip .7ex
+  % deal with progress bar stuff (calculate where it should go)
+  \progressbar@tmpcounta=\insertframenumber
+  \progressbar@tmpcountb=\inserttotalframenumber
+  \progressbar@tmpdim=\progressbar@pbwidth
+  \divide\progressbar@tmpdim by 100
+  \multiply\progressbar@tmpdim by \progressbar@tmpcounta
+  \divide\progressbar@tmpdim by \progressbar@tmpcountb
+  \multiply\progressbar@tmpdim by 100
+
   \usebeamerfont{headline}%
+  \nointerlineskip%
+  % if we're showing a progress bar, show it
+  \ifnum \value{showProgressBar}>0\relax%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.01\paperheight]{topline}%
+    \begin{beamercolorbox}[wd=\progressbar@tmpdim,left,ht=0.01\paperheight,leftskip=0cm]{purple block}%
+    \end{beamercolorbox}%
+  \end{beamercolorbox}
+  \else
+  \vskip .7ex
+  \fi%
   \begin{beamercolorbox}[wd=\paperwidth,leftskip=.3cm,rightskip=.3cm plus1fil,vmode,dp=2ex]{frametitle}%
     \usebeamerfont*{frametitle}\insertframetitle%
       \ifx\insertframesubtitle\@empty%
@@ -129,7 +170,7 @@
       \fi%%
   \end{beamercolorbox}%
   \vspace*{-1.8em}
-  \nointerlineskip
+  \nointerlineskip%
 }
 
 
@@ -186,6 +227,5 @@
 
 
 
-\mode
-<all>
+% \mode<all>
 
